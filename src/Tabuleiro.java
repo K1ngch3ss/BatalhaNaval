@@ -1,6 +1,6 @@
 public class Tabuleiro {
     private char[][] matriz;
-    private int tamanho = 15;
+    private static int tamanho = 15;
 
     // Construtor
     public Tabuleiro() {
@@ -31,7 +31,9 @@ public class Tabuleiro {
             return ' ';
         }
     }
-
+    public static boolean isValidCoordinate(int linha, int coluna) {
+        return (linha >= 0 && linha < tamanho && coluna >= 0 && coluna < tamanho);
+    }
     // Método para imprimir o tabuleiro
     public void imprimirTabuleiro() {
         for (int i = 0; i < tamanho; i++) {
@@ -57,6 +59,32 @@ public class Tabuleiro {
         } else {
             System.out.println("Posição inválida!");
         }
+    }
+    // Método para verificar se uma embarcação foi afundada
+    public boolean embarcacaoAfundada(char codigo) {
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if (matriz[i][j] == codigo) {
+                    return false; // Ainda há partes da embarcação no tabuleiro
+                }
+            }
+        }
+        return true; // Não há mais partes da embarcação no tabuleiro
+    }
+
+    // Método para verificar se todas as embarcações foram afundadas
+    public boolean todasEmbarcacoesAfundadas() {
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if (matriz[i][j] != '~') {
+                    return false; // Ainda há pelo menos uma embarcação no tabuleiro
+                }
+            }
+        }
+        return true; // Não há mais embarcações no tabuleiro
+    }
+    public boolean posicaoAtingida(int linha, int coluna) {
+        return matriz[linha][coluna] == ' ';
     }
 
 }

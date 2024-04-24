@@ -18,6 +18,24 @@ public enum Embarcacao {
         this.tamanho = tamanho;
     }
 
+    // Método para verificar se um nome de embarcação é válido
+    public static boolean isValid(String nomeEmbarcacao) {
+        for (Embarcacao embarcacao : Embarcacao.values()) {
+            if (embarcacao.name().equalsIgnoreCase(nomeEmbarcacao)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static Embarcacao getByCodigo(Character codigo) {
+        for (Embarcacao embarcacao : Embarcacao.values()) {
+            if (embarcacao.getCodigo().equals(codigo)) {
+                return embarcacao;
+            }
+        }
+        return null;
+    }
+
     // Getters for properties
     public String getNome() {
         return nome;
