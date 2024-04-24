@@ -44,23 +44,48 @@ public class Tabuleiro {
             System.out.println();
         }
     }
-    public void inserirEmbarcacao(Resultado resultado, char novoCaractere) {
-        if (resultado.getLinhaInicio() >= tamanhoMin && resultado.getLinhaInicio() < tamanhoMax && resultado.getColunaInicio() >= tamanhoMin && resultado.getColunaInicio() < tamanhoMax &&
-                resultado.getLinhaFim() >= tamanhoMin && resultado.getLinhaFim() < tamanhoMax && resultado.getColunaFim() >= tamanhoMin && resultado.getColunaFim() < tamanhoMax) {
-            for (int i = resultado.getLinhaInicio(); i <= resultado.getLinhaFim(); i++) {
-                for (int j = resultado.getColunaInicio(); j <= resultado.getColunaFim(); j++) {
-                    if (matriz[i][j] == '~') {
-                        matriz[i][j] = novoCaractere;
-                    } else {
-                        System.out.println("Posição já ocupada!");
-                        return;
-                    }
+    public class EspacoNaoLivreException extends Exception {
+        public EspacoNaoLivreException(String message) {
+            super(message);
+        }
+    }
+
+    public Boolean confirmarEspacoLivre(Resultado result) throws EspacoNaoLivreException {
+        // Verifica se as coordenadas de início e fim estão dentro dos limites do tabuleiro
+        if (result.getColunaInicio() < tamanhoMin || result.getLinhaInicio() >= tamanhoMax  || result.getColunaFim() < tamanhoMin || result.getLinhaFim() >= tamanhoMax  ||
+                result.getColunaFim() < tamanhoMin || result.getColunaFim() >= tamanhoMax  || result.getLinhaFim() < tamanhoMin || result.getLinhaFim() >= tamanhoMax ) {
+            throw new EspacoNaoLivreException("Coordenadas fora do tabuleiro.");
+        }
+
+        // Percorre o intervalo entre as coordenadas de início e fim
+        for (int i = result.getLinhaInicio(); i <= result.getLinhaFim(); i++) {
+            for (int j = result.getColunaInicio(); j <= result.getColunaFim(); j++) {
+                // Verifica se a posição no tabuleiro está ocupada ou se as posições adjacentes estão ocupadas
+                if (matriz[i][j] != '~' || (i > 0 && matriz[i-1][j] != '~') || (j > 0 && matriz[i][j-1] != '~') ||
+                        (i < tamanhoMax-1 && matriz[i+1][j] != '~') || (j < tamanhoMax-1 && matriz[i][j+1] != '~')) {
+                    throw new EspacoNaoLivreException("Posição ocupada ou posições adjacentes ocupadas.");
+                }
+            }
+        }
+        // Se todas as posições e suas adjacentes estiverem livres, retorna true
+        return true;
+    }
+
+    public void inserirEmbarcacao(Resultado result,char caractere) throws EspacoNaoLivreException {
+        // Verifica se o espaço está livre usando o método confirmarEspacoLivre
+        if (confirmarEspacoLivre(result)) {
+            // Percorre o intervalo entre as coordenadas de início e fim
+            for (int i = result.getLinhaInicio(); i <= result.getLinhaFim(); i++) {
+                for (int j = result.getColunaInicio(); j <= result.getColunaFim(); j++) {
+                    // Insere o caractere nos espaços livres
+                    matriz[i][j] = caractere;
                 }
             }
         } else {
-            System.out.println("Posição inválida!");
+            throw new EspacoNaoLivreException("Espaço não está livre ou adjacente a um espaço ocupado, caractere não inserido.");
         }
     }
+
     // Método para verificar se uma embarcação foi afundada
     public boolean embarcacaoAfundada(char codigo) {
         for (int i = tamanhoMin; i < tamanhoMax; i++) {
