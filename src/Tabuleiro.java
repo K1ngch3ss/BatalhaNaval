@@ -12,8 +12,6 @@ public class Tabuleiro {
             }
         }
     }
-
-    // Método para definir um caractere em uma posição específica
     public void setCaractere(int linha, int coluna, char caractere) {
         if (linha >= tamanhoMin && linha < tamanhoMax && coluna >= tamanhoMin && coluna < tamanhoMax) {
             matriz[linha][coluna] = caractere;
@@ -22,7 +20,6 @@ public class Tabuleiro {
         }
     }
 
-    // Método para obter um caractere de uma posição específica
     public char getCaractere(int linha, int coluna) {
         if (linha >= tamanhoMin && linha < tamanhoMax && coluna >= tamanhoMin && coluna < tamanhoMax) {
             return matriz[linha][coluna];
@@ -31,21 +28,17 @@ public class Tabuleiro {
             return ' ';
         }
     }
+
     public static boolean isValidCoordinate(int linha, int coluna) {
         return (linha >= tamanhoMin && linha < tamanhoMax && coluna >= tamanhoMin && coluna < tamanhoMax);
     }
-    // Método para imprimir o tabuleiro
+
     public void imprimirTabuleiro() {
         for (int i = tamanhoMin; i < tamanhoMax; i++) {
             for (int j = tamanhoMin; j < tamanhoMax; j++) {
                 System.out.print(matriz[i][j] + " ");
             }
             System.out.println();
-        }
-    }
-    public class EspacoNaoLivreException extends Exception {
-        public EspacoNaoLivreException(String message) {
-            super(message);
         }
     }
 
