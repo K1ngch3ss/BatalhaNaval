@@ -3,9 +3,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class LeitorArquivo {
-    public List<Resultado> lerArquivo(String nomeArquivo) {
+    public List<Resultado> lerArquivo(String nomeArquivo) throws Exception {
         List<Resultado> resultados = new ArrayList<>();
         Scanner scanner = null;
         try {
@@ -23,22 +22,24 @@ public class LeitorArquivo {
 
                     // Validação dos dados
                     if (!Embarcacao.isValid(nomeEmbarcacao)) {
-                        System.err.println("Nome de embarcação inválido: " + nomeEmbarcacao);
-                        continue;
+                        throw new Exception("Nome de embarcação inválido: " + nomeEmbarcacao);
                     }
                     if (!Tabuleiro.isValidCoordinate(linhaInicio, colunaInicio) || !Tabuleiro.isValidCoordinate(linhaFim, colunaFim)) {
-                        System.err.println("Coordenadas inválidas: " + linhaInicio + ", " + colunaInicio + " to " + linhaFim + ", " + colunaFim);
-                        continue;
+                        throw new Exception("Coordenadas inválidas: " + linhaInicio + ", " + colunaInicio + " to " + linhaFim + ", " + colunaFim);
                     }
                     Embarcacao embarcacao = Embarcacao.valueOf(nomeEmbarcacao);
+                    int tamanhoReal = Math.max(Math.abs(linhaFim - linhaInicio), Math.abs(colunaFim - colunaInicio)) + 1;
+                    if (tamanhoReal != embarcacao.getTamanho()) {
+                        throw new Exception("Tamanho de embarcação inválido: " + nomeEmbarcacao);
+                    }
                     Resultado resultado = new Resultado(embarcacao, linhaInicio, colunaInicio, linhaFim, colunaFim);
                     resultados.add(resultado);
                 } else {
-                    System.err.println("Linha mal formatada: " + linha);
+                    throw new Exception("Linha mal formatada: " + linha);
                 }
             }
         } catch (FileNotFoundException e) {
-            System.err.println(nomeArquivo + " não encontrado:");
+            throw new Exception(nomeArquivo + " não encontrado:");
         } finally {
             if (scanner != null) {
                 scanner.close();
@@ -47,3 +48,4 @@ public class LeitorArquivo {
         return resultados;
     }
 }
+

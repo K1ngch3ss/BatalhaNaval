@@ -7,7 +7,7 @@ public class Jogo {
     private Tabuleiro tabuleiro2;
     private boolean vezJogador1;
 
-    public Jogo(String arquivoJ1, String arquivoJ2) {
+    public Jogo(String arquivoJ1, String arquivoJ2) throws Exception {
         this.tabuleiro1 = new Tabuleiro();
         this.tabuleiro2 = new Tabuleiro();
         carregarTabuleiro(arquivoJ1, tabuleiro1);
@@ -15,7 +15,7 @@ public class Jogo {
         this.vezJogador1 = true; // O jogador 1 começa
     }
 
-    private void carregarTabuleiro(String arquivo, Tabuleiro tabuleiro) {
+    private void carregarTabuleiro(String arquivo, Tabuleiro tabuleiro) throws Exception {
         LeitorArquivo leitor = new LeitorArquivo();
         List<Resultado> resultados = leitor.lerArquivo(arquivo);
         for (Resultado resultado : resultados) {
@@ -23,7 +23,6 @@ public class Jogo {
             tabuleiro.inserirEmbarcacao(resultado, embarcacao.getCodigo());
         }
     }
-
     public void jogar() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
