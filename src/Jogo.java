@@ -44,7 +44,6 @@ public class Jogo {
                 char resultado = tabuleiroAtual.getCaractere(linha, coluna);
                 if (resultado == '~') {
                     System.out.println("AGUA");
-                    vezJogador1 = !vezJogador1; // Passa a vez para o outro jogador
                 } else if (resultado == ' ') {
                     System.out.println("TIRO JA EXECUTADO");
                 } else {
@@ -58,9 +57,10 @@ public class Jogo {
                 // Verifica se todas as embarcações foram afundadas
                 if (tabuleiroAtual.todasEmbarcacoesAfundadas()) {
                     System.out.println("FIM DE JOGO");
-                    System.out.println("VENCEDOR: Jogador " + (vezJogador1 ? "2" : "1"));
+                    System.out.println("VENCEDOR: Jogador " + (vezJogador1 ? "1" : "2"));
                     break;
                 }
+                vezJogador1 = !vezJogador1; // Passa a vez para o outro jogador
             } catch (InputMismatchException e) {
                 System.out.println("JOGADA INVALIDA");
                 scanner.nextLine(); // Descarta a entrada inválida
