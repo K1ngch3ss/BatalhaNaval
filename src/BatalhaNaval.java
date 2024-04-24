@@ -2,6 +2,7 @@ public class BatalhaNaval {
     public static void main(String[] args) {
         String arquivoJ1 = "j1.txt";
         String arquivoJ2 = "j2.txt";
+        System.out.println("java batalhaNaval.Batalha "+arquivoJ1+" "+arquivoJ2);
         try {
             Jogo jogo = new Jogo(arquivoJ1, arquivoJ2);
             System.out.println("TABULEIROS CARREGADOS COM SUCESSO");
