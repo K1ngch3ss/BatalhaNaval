@@ -3,7 +3,7 @@ public enum Embarcacao {
     DESTROYER("Destroyer",'D',4,4),
     CRUZADOR("Cruzador", 'C', 4, 4),
     SUBMARINO("Submarino", 'S', 3, 3),
-   PATRULHA("Destroyer", 'P', 2, 2);
+   PATRULHA("Patrulha", 'P', 2, 2);
 
     private final String nome;
     private final Character codigo;
