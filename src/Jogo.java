@@ -53,12 +53,13 @@ public class Jogo {
                     tabuleiroAtual.setCaractere(linha, coluna, ' '); // Marca o tiro no tabuleiro
                     if (tabuleiroAtual.embarcacaoAfundada(codigoEmbarcacao)) {
                         System.out.println("AFUNDOU " + Embarcacao.getByCodigo(codigoEmbarcacao).getNome());
-                        if (tabuleiroAtual.todasEmbarcacoesAfundadas()) {
-                            System.out.println("FIM DE JOGO");
-                            System.out.println("VENCEDOR: Jogador " + (vezJogador1 ? "1" : "2"));
-                            break;
-                        }
                     }
+                }
+                // Verifica se todas as embarcações foram afundadas
+                if (tabuleiroAtual.todasEmbarcacoesAfundadas()) {
+                    System.out.println("FIM DE JOGO");
+                    System.out.println("VENCEDOR: Jogador " + (vezJogador1 ? "2" : "1"));
+                    break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("JOGADA INVALIDA");
@@ -67,4 +68,5 @@ public class Jogo {
         }
         scanner.close();
     }
+
 }

@@ -76,7 +76,7 @@ public class Tabuleiro {
     public boolean todasEmbarcacoesAfundadas() {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
-                if (matriz[i][j] != '~') {
+                if (matriz[i][j] != '~' && matriz[i][j] != ' ') {
                     return false; // Ainda há pelo menos uma embarcação no tabuleiro
                 }
             }
