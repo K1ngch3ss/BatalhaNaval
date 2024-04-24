@@ -31,7 +31,7 @@ public class LeitorArquivo {
                         throw new Exception("ERRO LINHA " + linhaCount + ": " + nomeArquivo);
                     }
                     if ((linhaInicio != linhaFim && colunaInicio == colunaFim) || (linhaInicio == linhaFim && colunaInicio != colunaFim)) {
-                        Embarcacao embarcacao = Embarcacao.valueOf(nomeEmbarcacao.toUpperCase());
+                        Embarcacao embarcacao = Embarcacao.valueOf(nomeEmbarcacao);
                         int tamanhoReal = Math.max(Math.abs(linhaFim - linhaInicio), Math.abs(colunaFim - colunaInicio)) + 1;
                         if (tamanhoReal != embarcacao.getTamanho()) {
                             throw new Exception("ERRO LINHA " + linhaCount + ": " + nomeArquivo);
@@ -55,6 +55,3 @@ public class LeitorArquivo {
         return resultados;
     }
 }
-
-
-

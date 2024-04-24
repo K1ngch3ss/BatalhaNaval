@@ -20,8 +20,8 @@ public enum Embarcacao {
 
     // Método para verificar se um nome de embarcação é válido
     public static boolean isValid(String nomeEmbarcacao) {
-        for (Embarcacao embarcacao : Embarcacao.values()) {
-            if (embarcacao.name().equalsIgnoreCase(nomeEmbarcacao)) {
+        for (Embarcacao e : Embarcacao.values()) {
+            if (e.name().equals(nomeEmbarcacao)) {
                 return true;
             }
         }
