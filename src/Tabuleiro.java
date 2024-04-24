@@ -3,7 +3,6 @@ public class Tabuleiro {
     private static int tamanhoMax = 16;
     private static int tamanhoMin = 1;
 
-    // Construtor
     public Tabuleiro() {
         matriz = new char[tamanhoMax][tamanhoMax];
         // Inicializa a matriz com espaços em branco
