@@ -1,73 +1,62 @@
-import java.util.List;
-
 public class Tabuleiro {
+    private char[][] matriz;
+    private int tamanho = 15;
 
-    private char[][] tabuleiro;
-
-
+    // Construtor
     public Tabuleiro() {
-        // Inicializa a matriz do tabuleiro com tamanho 15x15
-        this.tabuleiro = new char[15][15];
-        // Preenche o tabuleiro com o caractere '~' de água
-        inicializarTabuleiro();
-    }
-
-    // Método privado para preencher o tabuleiro com '-'
-    public void inicializarTabuleiro() {
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                tabuleiro[i][j] = '~';
+        matriz = new char[tamanho][tamanho];
+        // Inicializa a matriz com espaços em branco
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                matriz[i][j] = '~';
             }
         }
     }
 
-    public Boolean confirmarEspacoLivre(Resultado result) {
-
-        // Verifica se as coordenadas de início e fim estão dentro dos limites do tabuleiro
-        if (result.getCab1() < 0 || result.getCab1() >= 15 || result.getCab2() < 0 || result.getCab2() >= 15 ||
-                result.getCald1() < 0 || result.getCald1() >= 15 || result.getCald2() < 0 || result.getCald2() >= 15) {
-            // Coordenadas fora do tabuleiro, retorna false
-            return false;
-        }
-
-        // Percorre o intervalo entre as coordenadas de início e fim
-        for (int i = result.getCab1(); i <= result.getCald1(); i++) {
-            for (int j = result.getCald1(); j <= result.getCald2(); j++) {
-                // Verifica se a posição no tabuleiro está ocupada
-                if (tabuleiro[i][j] != '~') {
-                    // Posição ocupada, retorna false
-                    return false;
-                }
-            }
-        }
-        // Se todas as posições estiverem livres, retorna true
-        return true;
-    }
-
-    public void inserirCaractere(char caractere, Resultado result) {
-        // Verifica se o espaço está livre usando o método confirmarEspacoLivre
-        if (confirmarEspacoLivre(result)) {
-            // Percorre o intervalo entre as coordenadas de início e fim
-            for (int i = result.getCab1(); i <= result.getCald1(); i++) {
-                for (int j = result.getCald1(); j <= result.getCald2(); j++) {
-                    // Insere o caractere nos espaços livres
-                    tabuleiro[i][j] = caractere;
-                }
-            }
-            System.out.println("Caractere inserido com sucesso!");
+    // Método para definir um caractere em uma posição específica
+    public void setCaractere(int linha, int coluna, char caractere) {
+        if (linha >= 0 && linha < tamanho && coluna >= 0 && coluna < tamanho) {
+            matriz[linha][coluna] = caractere;
         } else {
-            System.out.println("Espaço não está livre, caractere não inserido.");
+            System.out.println("Posição inválida!");
         }
     }
-    // Método para imprimir o tabuleiro no console
+
+    // Método para obter um caractere de uma posição específica
+    public char getCaractere(int linha, int coluna) {
+        if (linha >= 0 && linha < tamanho && coluna >= 0 && coluna < tamanho) {
+            return matriz[linha][coluna];
+        } else {
+            System.out.println("Posição inválida!");
+            return ' ';
+        }
+    }
+
+    // Método para imprimir o tabuleiro
     public void imprimirTabuleiro() {
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                // Imprime o caractere na posição (i, j) do tabuleiro, seguido de um espaço
-                System.out.print(tabuleiro[i][j] + " ");
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                System.out.print(matriz[i][j] + " ");
             }
-            // Imprime uma nova linha para separar as linhas do tabuleiro
             System.out.println();
         }
     }
+    public void inserirEmbarcacao(Resultado resultado, char novoCaractere) {
+        if (resultado.getLinhaInicio() >= 0 && resultado.getLinhaInicio() < tamanho && resultado.getColunaInicio() >= 0 && resultado.getColunaInicio() < tamanho &&
+                resultado.getLinhaFim() >= 0 && resultado.getLinhaFim() < tamanho && resultado.getColunaFim() >= 0 && resultado.getColunaFim() < tamanho) {
+            for (int i = resultado.getLinhaInicio(); i <= resultado.getLinhaFim(); i++) {
+                for (int j = resultado.getColunaInicio(); j <= resultado.getColunaFim(); j++) {
+                    if (matriz[i][j] == '~') {
+                        matriz[i][j] = novoCaractere;
+                    } else {
+                        System.out.println("Posição já ocupada!");
+                        return;
+                    }
+                }
+            }
+        } else {
+            System.out.println("Posição inválida!");
+        }
+    }
+
 }

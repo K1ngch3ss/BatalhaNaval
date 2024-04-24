@@ -6,13 +6,16 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Tabuleiro tabuleiro = new Tabuleiro();
-        tabuleiro.inicializarTabuleiro();
-        tabuleiro.imprimirTabuleiro();
         String nomeEmbarcacao = "PORTA_AVIOES";
-        Embarcacao embarcacao = Embarcacao.valueOf(nomeEmbarcacao);
-        Resultado resultado = new Resultado(embarcacao,7,4,11,4);
-        tabuleiro.inserirCaractere(embarcacao.getCodigo(),resultado);
+        Embarcacao portaAviao = Embarcacao.valueOf(nomeEmbarcacao);
+        Resultado resultadoA = new Resultado(portaAviao,7,4,11,4);
+        Resultado resultadoB = new Resultado(Embarcacao.SUBMARINO,7,4,7,6);
         tabuleiro.imprimirTabuleiro();
-
+        System.out.println("----------------------------");
+        tabuleiro.inserirEmbarcacao(resultadoA,resultadoA.getEmbarcacao().getCodigo());
+        tabuleiro.imprimirTabuleiro();
+        System.out.println("----------------------------");
+        tabuleiro.inserirEmbarcacao(resultadoB,resultadoB.getEmbarcacao().getCodigo());
+        tabuleiro.imprimirTabuleiro();
     }
 }
